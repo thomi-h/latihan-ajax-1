@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX | Latihan 1</title>
+    <style>
+      h1 {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 1em;
+      }
+      .button {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+      }
+      button {
+        padding: 0.5em 1.5em;
+        cursor: pointer;
+        background-color: rgba(251, 202, 60, 0.7);
+        border: 1px solid yellow;
+        border-radius: 5px;
+      }
+      .card {
+        display: none;
+        position: relative;
+        margin: 0 auto;
+        border-radius: 10px;
+        width: 200px;
+        /* height: 300px; */
+        background-color: rgba(251, 202, 60, 0.7);
+      }
+      p {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        /* margin-top: 20px; */
+      }
+      /* #type {
+        position: absolute;
+        bottom: 10px;
+        left: 55px;
+      } */
+      img {
+        width: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Get Pikachu</h1>
+    <div class="button">
+      <button onclick="fetchData()">Get!</button>
+      <div class="card">
+        <p id="name"></p>
+        <div class="img">
+          <img src="" alt="" id="img" />
+        </div>
+        <p id="type"></p>
+      </div>
+    </div>
+    <script>
+      async function fetchData() {
+        const response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon/pikachu"
+        );
+        const data = await response.json();
+        // console.log(data);
+
+        const name = `${data.id}: ${data.name}`;
+        const type = `Type: ${data.types[0].type.name}`;
+        // console.log(type);
+        const card = document.getElementsByClassName("card");
+        card[0].style.display = "block";
+        const nameTag = document.getElementById("name");
+        nameTag.innerHTML = name;
+
+        const typeTag = document.getElementById("type");
+        typeTag.innerHTML = type;
+
+        const imgUrl = data.sprites.front_default;
+        // console.log(imgUrl);
+        const img = document.getElementById("img");
+        img.src = imgUrl;
+      }
+    </script>
+  </body>
+</html>
